@@ -17,8 +17,11 @@ def setpos():
             time.sleep(3)
 
 
-def trade_from_inventory(inventory_coords, pos=59):
+def move_from_inventory(inventory_coords, target="stash", pos=59):
+    if target == "stash":
+        open_stash()
     keyboard.press("ctrl")
+    time.sleep(0.1)
     for i in range(pos, -1, -1):
         mouse.move(inventory_coords[i][0] + random.randint(-8, 8), inventory_coords[i][1] + random.randint(-8, 8), duration=0.015)
         mouse.click("left")
@@ -34,6 +37,11 @@ def load_pos(file_name, coords):
         for line in data:
             print(line)
             coords.append(list(map(int, line[:-1].split(","))))
+
+def open_stash():
+    mouse.move(1027 + random.randint(-8, 8), 426 + random.randint(-8, 8), duration=0.015)
+    mouse.click("left")
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -53,13 +61,13 @@ if __name__ == '__main__':
 
     try:
         time.sleep(2)
-        #setpos()
-        daaa = []
-        daaaa = []
-        load_pos("data/posTrade.txt", daaa)
-        load_pos("data/posInv.txt", daaaa)
-        trade_from_inventory(daaaa)
-        check_trade_window(daaa)
+        # setpos()
+        trade_window_coords = []
+        inventory_coords = []
+        load_pos("data/posTrade.txt", trade_window_coords)
+        load_pos("data/posInv.txt", inventory_coords)
+        move_from_inventory(inventory_coords)
+        # check_trade_window(trade_window_coords)
 
     except KeyboardInterrupt:
         print('s')
