@@ -1,7 +1,7 @@
 import os, time, traceback
 
 class FileModified():
-    def __int__(self, file_path, callback):
+    def __init__(self, file_path, callback):
         self.file_path = file_path
         self.callback = callback
         self.modified = os.path.getatime(file_path)
